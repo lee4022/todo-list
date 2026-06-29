@@ -42,9 +42,14 @@ function renderGroupTabs() {
       ${!g.isDefault ? `<span class="group-del" data-group="${g.id}" title="그룹 삭제">×</span>` : ''}
     </button>`;
   }).join('');
+  const hasUserGroups = groups.some(g => !g.isDefault);
+  if (!hasUserGroups) currentGroup = 'all';
   const allActive = currentGroup === 'all';
+  const allBtn = hasUserGroups
+    ? `<button class="group-tab${allActive ? ' active' : ''}" data-group="all">전체</button>`
+    : '';
   groupTabsEl.innerHTML =
-    `<button class="group-tab${allActive ? ' active' : ''}" data-group="all">전체</button>` +
+    allBtn +
     buttons +
     `<button class="add-group-btn" id="addGroupBtn" title="그룹 추가">+</button>`;
 
