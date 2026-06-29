@@ -75,9 +75,12 @@
       </section>
 
       <section class="todo-section">
-        <div class="group-tabs" id="groupTabs">
-          <button class="group-tab active" data-group="all">전체</button>
-          <button class="add-group-btn" id="addGroupBtn" title="그룹 추가">+</button>
+        <div class="group-section">
+          <div class="group-header">
+            <span class="group-label">그룹</span>
+            <button class="add-group-btn" id="addGroupBtn" title="그룹 추가">+</button>
+          </div>
+          <div class="group-tabs" id="groupTabs"></div>
         </div>
         <div class="group-add-form" id="groupAddForm">
           <input type="text" id="groupNameInput" class="group-name-input" placeholder="그룹 이름 입력...">
