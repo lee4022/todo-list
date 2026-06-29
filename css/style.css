@@ -133,6 +133,23 @@ body {
   transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
 
+.group-select {
+  margin-left: auto;
+  height: 30px;
+  padding: 0 10px;
+  font-size: 0.83rem;
+  font-family: inherit;
+  color: #555;
+  background: #f4f4f6;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.group-select:focus { border-color: #764ba2; }
+
 .desc-toggle-btn:hover,
 .desc-toggle-btn.active {
   color: #764ba2;
@@ -463,6 +480,24 @@ body {
 
 .checkbox-wrapper input:checked + .checkmark::after {
   opacity: 1;
+}
+
+/* ── 그룹 뱃지 ── */
+.todo-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.group-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  opacity: 0.9;
 }
 
 /* ── 할 일 텍스트 ── */

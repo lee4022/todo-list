@@ -1,4 +1,5 @@
 const groupTabsEl      = document.getElementById('groupTabs');
+const groupSelect      = document.getElementById('groupSelect');
 const addGroupBtn      = document.getElementById('addGroupBtn');
 const groupAddForm     = document.getElementById('groupAddForm');
 const groupNameInput   = document.getElementById('groupNameInput');
@@ -26,6 +27,12 @@ let currentGroup = 'all';
 let todos = [];
 let nextId = 1;
 let currentFilter = 'all';
+
+function renderGroupSelect() {
+  groupSelect.innerHTML = groups.map(g =>
+    `<option value="${g.id}">${g.name}</option>`
+  ).join('');
+}
 
 function renderGroupTabs() {
   const buttons = groups.map(g => {
@@ -65,6 +72,7 @@ function addGroup(name) {
   const color = GROUP_COLORS[nextGroupId % GROUP_COLORS.length];
   groups.push({ id: `g${nextGroupId++}`, name, color, isDefault: false });
   renderGroupTabs();
+  renderGroupSelect();
 }
 
 function deleteGroup(id) {
@@ -72,6 +80,7 @@ function deleteGroup(id) {
   groups = groups.filter(g => g.id !== id);
   if (currentGroup === id) currentGroup = 'all';
   renderGroupTabs();
+  renderGroupSelect();
   render();
 }
 
@@ -82,7 +91,8 @@ function addTodo() {
     return;
   }
   const description = descInput.value.trim();
-  todos.push({ id: nextId++, text, description, completed: false, createdAt: formatDate(new Date()) });
+  const groupId = groupSelect.value || 'default';
+  todos.push({ id: nextId++, text, description, groupId, completed: false, createdAt: formatDate(new Date()) });
   todoInput.value = '';
   descInput.value = '';
   descInput.style.display = 'none';
@@ -161,7 +171,10 @@ function render() {
         <span class="checkmark"></span>
       </label>
       <div class="todo-body">
-        <span class="todo-text">${escapeHtml(todo.text)}</span>
+        <div class="todo-main">
+          <span class="todo-text">${escapeHtml(todo.text)}</span>
+          ${(()=>{ const g = groups.find(g=>g.id===todo.groupId); return g ? `<span class="group-badge" style="background:${g.color}">${g.name}</span>` : ''; })()}
+        </div>
         <span class="created-at">생성 ${todo.createdAt}</span>
         ${todo.completed && todo.completedAt ? `<span class="completed-at">완료 ${todo.completedAt}</span>` : ''}
         ${todo.description ? `<details class="todo-desc"><summary>설명 보기</summary><p class="desc-content">${escapeHtml(todo.description)}</p></details>` : ''}
@@ -222,4 +235,5 @@ tabs.forEach(tab => {
 });
 
 renderGroupTabs();
+renderGroupSelect();
 render();
