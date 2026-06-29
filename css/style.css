@@ -224,13 +224,31 @@ body {
   transform: scale(0.97);
 }
 
-/* ── 그룹 탭 ── */
+/* ── 그룹 영역 ── */
+.group-section {
+  padding: 14px 20px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.group-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #aaa;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
 .group-tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  padding: 14px 20px 10px;
-  border-bottom: 1px solid #f0f0f0;
 }
 
 .group-tab {
@@ -280,11 +298,11 @@ body {
 .group-del:hover { opacity: 1; background: rgba(0,0,0,0.15); }
 
 .add-group-btn {
-  width: 30px;
-  height: 30px;
-  font-size: 1.1rem;
+  width: 22px;
+  height: 22px;
+  font-size: 1rem;
   font-weight: 400;
-  color: #aaa;
+  color: #bbb;
   border: 1.5px dashed #ddd;
   border-radius: 50%;
   display: flex;

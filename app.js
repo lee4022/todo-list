@@ -48,10 +48,7 @@ function renderGroupTabs() {
   const allBtn = hasUserGroups
     ? `<button class="group-tab${allActive ? ' active' : ''}" data-group="all">전체</button>`
     : '';
-  groupTabsEl.innerHTML =
-    allBtn +
-    buttons +
-    `<button class="add-group-btn" id="addGroupBtn" title="그룹 추가">+</button>`;
+  groupTabsEl.innerHTML = allBtn + buttons;
 
   groupTabsEl.querySelectorAll('.group-tab').forEach(btn => {
     btn.addEventListener('click', e => {
@@ -66,10 +63,6 @@ function renderGroupTabs() {
       e.stopPropagation();
       deleteGroup(btn.dataset.group);
     });
-  });
-  document.getElementById('addGroupBtn').addEventListener('click', () => {
-    groupAddForm.classList.toggle('open');
-    if (groupAddForm.classList.contains('open')) groupNameInput.focus();
   });
 }
 
@@ -197,6 +190,11 @@ function render() {
     item.querySelector('.delete-btn').addEventListener('click', () => deleteTodo(id));
   });
 }
+
+addGroupBtn.addEventListener('click', () => {
+  groupAddForm.classList.toggle('open');
+  if (groupAddForm.classList.contains('open')) groupNameInput.focus();
+});
 
 confirmGroupBtn.addEventListener('click', () => {
   const name = groupNameInput.value.trim();
