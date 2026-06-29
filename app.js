@@ -1,3 +1,9 @@
+const groupTabsEl      = document.getElementById('groupTabs');
+const addGroupBtn      = document.getElementById('addGroupBtn');
+const groupAddForm     = document.getElementById('groupAddForm');
+const groupNameInput   = document.getElementById('groupNameInput');
+const confirmGroupBtn  = document.getElementById('confirmGroupBtn');
+const cancelGroupBtn   = document.getElementById('cancelGroupBtn');
 const todoInput         = document.getElementById('todoInput');
 const addBtn            = document.getElementById('addBtn');
 const descToggleBtn     = document.getElementById('descToggleBtn');
@@ -12,9 +18,62 @@ const todoFooter        = document.getElementById('todoFooter');
 const remainingText     = document.getElementById('remainingText');
 const clearCompletedBtn = document.getElementById('clearCompletedBtn');
 
+const GROUP_COLORS = ['#667eea','#e05252','#52b788','#f4a261','#9b72cf','#4ecdc4','#e8a838'];
+let groups = [{ id: 'default', name: '기타', color: '#aaa', isDefault: true }];
+let nextGroupId = 1;
+let currentGroup = 'all';
+
 let todos = [];
 let nextId = 1;
 let currentFilter = 'all';
+
+function renderGroupTabs() {
+  const buttons = groups.map(g => {
+    const isActive = currentGroup === g.id;
+    return `<button class="group-tab${isActive ? ' active' : ''}" data-group="${g.id}" style="--g-color:${g.color}">
+      <span class="group-dot"></span>${g.name}
+      ${!g.isDefault ? `<span class="group-del" data-group="${g.id}" title="그룹 삭제">×</span>` : ''}
+    </button>`;
+  }).join('');
+  const allActive = currentGroup === 'all';
+  groupTabsEl.innerHTML =
+    `<button class="group-tab${allActive ? ' active' : ''}" data-group="all">전체</button>` +
+    buttons +
+    `<button class="add-group-btn" id="addGroupBtn" title="그룹 추가">+</button>`;
+
+  groupTabsEl.querySelectorAll('.group-tab').forEach(btn => {
+    btn.addEventListener('click', e => {
+      if (e.target.classList.contains('group-del')) return;
+      currentGroup = btn.dataset.group;
+      renderGroupTabs();
+      render();
+    });
+  });
+  groupTabsEl.querySelectorAll('.group-del').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      deleteGroup(btn.dataset.group);
+    });
+  });
+  document.getElementById('addGroupBtn').addEventListener('click', () => {
+    groupAddForm.classList.toggle('open');
+    if (groupAddForm.classList.contains('open')) groupNameInput.focus();
+  });
+}
+
+function addGroup(name) {
+  const color = GROUP_COLORS[nextGroupId % GROUP_COLORS.length];
+  groups.push({ id: `g${nextGroupId++}`, name, color, isDefault: false });
+  renderGroupTabs();
+}
+
+function deleteGroup(id) {
+  todos = todos.map(t => t.groupId === id ? { ...t, groupId: 'default' } : t);
+  groups = groups.filter(g => g.id !== id);
+  if (currentGroup === id) currentGroup = 'all';
+  renderGroupTabs();
+  render();
+}
 
 function addTodo() {
   const text = todoInput.value.trim();
@@ -119,6 +178,24 @@ function render() {
   });
 }
 
+confirmGroupBtn.addEventListener('click', () => {
+  const name = groupNameInput.value.trim();
+  if (!name) return;
+  addGroup(name);
+  groupNameInput.value = '';
+  groupAddForm.classList.remove('open');
+});
+
+cancelGroupBtn.addEventListener('click', () => {
+  groupNameInput.value = '';
+  groupAddForm.classList.remove('open');
+});
+
+groupNameInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') confirmGroupBtn.click();
+  if (e.key === 'Escape') cancelGroupBtn.click();
+});
+
 descToggleBtn.addEventListener('click', () => {
   const isOpen = descInput.style.display === 'block';
   descInput.style.display = isOpen ? 'none' : 'block';
@@ -144,4 +221,5 @@ tabs.forEach(tab => {
   });
 });
 
+renderGroupTabs();
 render();

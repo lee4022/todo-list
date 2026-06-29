@@ -207,6 +207,126 @@ body {
   transform: scale(0.97);
 }
 
+/* ── 그룹 탭 ── */
+.group-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 14px 20px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.group-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #888;
+  background: #f4f4f6;
+  border-radius: 20px;
+  transition: background 0.15s, color 0.15s;
+  position: relative;
+}
+
+.group-tab:hover { background: #ece8f5; color: #764ba2; }
+
+.group-tab.active {
+  background: var(--g-color, #764ba2);
+  color: #fff;
+}
+
+.group-tab[data-group="all"].active { background: #764ba2; }
+
+.group-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--g-color, transparent);
+  display: inline-block;
+}
+
+.group-tab.active .group-dot { background: rgba(255,255,255,0.6); }
+.group-tab[data-group="all"] .group-dot { display: none; }
+
+.group-del {
+  font-size: 0.9rem;
+  line-height: 1;
+  margin-left: 2px;
+  opacity: 0.6;
+  padding: 0 2px;
+  border-radius: 4px;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.group-del:hover { opacity: 1; background: rgba(0,0,0,0.15); }
+
+.add-group-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #aaa;
+  border: 1.5px dashed #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.add-group-btn:hover { color: #764ba2; border-color: #764ba2; }
+
+/* ── 그룹 추가 폼 ── */
+.group-add-form {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #faf8ff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.group-add-form.open { display: flex; }
+
+.group-name-input {
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: #fff;
+  border: 2px solid #d8c8ef;
+  border-radius: 10px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.group-name-input:focus { border-color: #764ba2; }
+
+.confirm-group-btn {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 10px;
+}
+
+.cancel-group-btn {
+  height: 36px;
+  padding: 0 14px;
+  font-size: 0.85rem;
+  color: #aaa;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.cancel-group-btn:hover { background: #f0f0f0; }
+
 /* ── 탭 ── */
 .tabs {
   display: flex;
