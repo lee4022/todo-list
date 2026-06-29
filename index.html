@@ -63,8 +63,14 @@
         </div>
       </header>
       <section class="input-section">
-        <input type="text" id="todoInput" class="todo-input" placeholder="할 일을 입력하세요...">
-        <button id="addBtn" class="add-btn">추가</button>
+        <div class="input-row">
+          <input type="text" id="todoInput" class="todo-input" placeholder="할 일을 입력하세요...">
+          <button id="addBtn" class="add-btn">추가</button>
+        </div>
+        <div class="input-options">
+          <button id="descToggleBtn" class="desc-toggle-btn">+ 설명</button>
+        </div>
+        <textarea id="descInput" class="desc-textarea" placeholder="설명을 입력하세요..."></textarea>
       </section>
 
       <section class="todo-section">

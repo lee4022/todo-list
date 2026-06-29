@@ -1,13 +1,15 @@
-const todoInput        = document.getElementById('todoInput');
-const addBtn           = document.getElementById('addBtn');
-const todoList         = document.getElementById('todoList');
-const emptyState       = document.getElementById('emptyState');
-const allCount         = document.getElementById('allCount');
-const activeCount      = document.getElementById('activeCount');
-const completedCount   = document.getElementById('completedCount');
-const tabs             = document.querySelectorAll('.tab');
-const todoFooter       = document.getElementById('todoFooter');
-const remainingText    = document.getElementById('remainingText');
+const todoInput         = document.getElementById('todoInput');
+const addBtn            = document.getElementById('addBtn');
+const descToggleBtn     = document.getElementById('descToggleBtn');
+const descInput         = document.getElementById('descInput');
+const todoList          = document.getElementById('todoList');
+const emptyState        = document.getElementById('emptyState');
+const allCount          = document.getElementById('allCount');
+const activeCount       = document.getElementById('activeCount');
+const completedCount    = document.getElementById('completedCount');
+const tabs              = document.querySelectorAll('.tab');
+const todoFooter        = document.getElementById('todoFooter');
+const remainingText     = document.getElementById('remainingText');
 const clearCompletedBtn = document.getElementById('clearCompletedBtn');
 
 let todos = [];
@@ -20,8 +22,13 @@ function addTodo() {
     todoInput.focus();
     return;
   }
-  todos.push({ id: nextId++, text, completed: false, createdAt: formatDate(new Date()) });
+  const description = descInput.value.trim();
+  todos.push({ id: nextId++, text, description, completed: false, createdAt: formatDate(new Date()) });
   todoInput.value = '';
+  descInput.value = '';
+  descInput.style.display = 'none';
+  descToggleBtn.textContent = '+ 설명';
+  descToggleBtn.classList.remove('active');
   todoInput.focus();
   render();
 }
@@ -98,6 +105,7 @@ function render() {
         <span class="todo-text">${escapeHtml(todo.text)}</span>
         <span class="created-at">생성 ${todo.createdAt}</span>
         ${todo.completed && todo.completedAt ? `<span class="completed-at">완료 ${todo.completedAt}</span>` : ''}
+        ${todo.description ? `<details class="todo-desc"><summary>설명 보기</summary><p class="desc-content">${escapeHtml(todo.description)}</p></details>` : ''}
       </div>
       <button class="delete-btn" title="삭제">✕</button>
     </li>
@@ -110,6 +118,14 @@ function render() {
     item.querySelector('.delete-btn').addEventListener('click', () => deleteTodo(id));
   });
 }
+
+descToggleBtn.addEventListener('click', () => {
+  const isOpen = descInput.style.display === 'block';
+  descInput.style.display = isOpen ? 'none' : 'block';
+  descToggleBtn.textContent = isOpen ? '+ 설명' : '- 설명';
+  descToggleBtn.classList.toggle('active', !isOpen);
+  if (!isOpen) descInput.focus();
+});
 
 clearCompletedBtn.addEventListener('click', clearCompleted);
 
