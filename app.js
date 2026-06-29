@@ -20,7 +20,7 @@ function addTodo() {
     todoInput.focus();
     return;
   }
-  todos.push({ id: nextId++, text, completed: false });
+  todos.push({ id: nextId++, text, completed: false, createdAt: formatDate(new Date()) });
   todoInput.value = '';
   todoInput.focus();
   render();
@@ -96,6 +96,7 @@ function render() {
       </label>
       <div class="todo-body">
         <span class="todo-text">${escapeHtml(todo.text)}</span>
+        <span class="created-at">생성 ${todo.createdAt}</span>
         ${todo.completed && todo.completedAt ? `<span class="completed-at">완료 ${todo.completedAt}</span>` : ''}
       </div>
       <button class="delete-btn" title="삭제">✕</button>
