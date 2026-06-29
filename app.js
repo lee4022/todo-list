@@ -133,18 +133,20 @@ function escapeHtml(str) {
 }
 
 function getFiltered() {
-  if (currentFilter === 'active')    return todos.filter(t => !t.completed);
-  if (currentFilter === 'completed') return todos.filter(t => t.completed);
-  return todos;
+  let result = currentGroup === 'all' ? todos : todos.filter(t => t.groupId === currentGroup);
+  if (currentFilter === 'active')    return result.filter(t => !t.completed);
+  if (currentFilter === 'completed') return result.filter(t => t.completed);
+  return result;
 }
 
 function render() {
   const filtered = getFiltered();
 
-  const remaining  = todos.filter(t => !t.completed).length;
-  const doneCount  = todos.filter(t => t.completed).length;
+  const grouped    = currentGroup === 'all' ? todos : todos.filter(t => t.groupId === currentGroup);
+  const remaining  = grouped.filter(t => !t.completed).length;
+  const doneCount  = grouped.filter(t => t.completed).length;
 
-  allCount.textContent       = todos.length;
+  allCount.textContent       = grouped.length;
   activeCount.textContent    = remaining;
   completedCount.textContent = doneCount;
 
