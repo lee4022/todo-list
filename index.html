@@ -7,52 +7,56 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container">
 
+  <!-- 인증 섹션: 미로그인 시 표시 -->
+  <div id="authSection" class="auth-section">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2 class="auth-title" id="authTitle">로그인</h2>
+        <p class="auth-sub" id="authSubtitle">TODO List에 오신 것을 환영합니다</p>
+      </div>
+      <div class="auth-body">
+        <input type="email" id="authEmail" class="auth-input" placeholder="이메일" autocomplete="email">
+        <input type="password" id="authPassword" class="auth-input" placeholder="비밀번호" autocomplete="current-password">
+        <p id="authError" class="auth-error"></p>
+        <button id="authSubmitBtn" class="auth-submit-btn">로그인</button>
+        <button id="authToggleBtn" class="auth-toggle-btn">계정이 없으신가요? 회원가입</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 앱 컨테이너: 로그인 후 표시 -->
+  <div id="appContainer" class="container" style="display:none">
     <main class="main">
       <header class="card-header">
         <div class="card-header-text">
           <h1 class="card-title">TODO List</h1>
-          <p class="card-sub">오늘 할 일을 정리해보세요.일정 정리</p>
+          <p class="card-sub">오늘 할 일을 정리해보세요</p>
+          <div class="header-user">
+            <span id="userEmail" class="user-email"></span>
+            <button id="logoutBtn" class="logout-btn">로그아웃</button>
+          </div>
         </div>
         <div class="card-header-illust">
           <svg viewBox="0 0 160 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- 배경 원형 글로우 -->
             <circle cx="112" cy="60" r="44" fill="rgba(255,255,255,0.08)"/>
             <circle cx="112" cy="60" r="30" fill="rgba(255,255,255,0.10)"/>
-
-            <!-- 클립보드 본체 -->
             <rect x="34" y="22" width="80" height="96" rx="10" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
-
-            <!-- 클립 -->
             <rect x="62" y="14" width="24" height="14" rx="7" fill="rgba(255,255,255,0.35)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
             <rect x="68" y="17" width="12" height="8" rx="4" fill="rgba(255,255,255,0.55)"/>
-
-            <!-- 할 일 줄 1 (완료) -->
             <rect x="52" y="44" width="46" height="7" rx="3.5" fill="rgba(255,255,255,0.20)"/>
             <circle cx="44" cy="47.5" r="6" fill="rgba(255,255,255,0.30)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
-            <!-- 체크 표시 -->
             <polyline points="41,47.5 43.5,50 47.5,44.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-
-            <!-- 할 일 줄 2 (완료) -->
             <rect x="52" y="64" width="38" height="7" rx="3.5" fill="rgba(255,255,255,0.20)"/>
             <circle cx="44" cy="67.5" r="6" fill="rgba(255,255,255,0.30)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
             <polyline points="41,67.5 43.5,70 47.5,64.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-
-            <!-- 할 일 줄 3 (진행중) -->
             <rect x="52" y="84" width="52" height="7" rx="3.5" fill="rgba(255,255,255,0.20)"/>
             <circle cx="44" cy="87.5" r="6" fill="transparent" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
-
-            <!-- 할 일 줄 4 (진행중) -->
             <rect x="52" y="101" width="30" height="7" rx="3.5" fill="rgba(255,255,255,0.13)"/>
             <circle cx="44" cy="104.5" r="6" fill="transparent" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-
-            <!-- 우측 장식 별/스파클 -->
             <circle cx="130" cy="25" r="3" fill="rgba(255,255,255,0.6)"/>
             <circle cx="142" cy="44" r="2" fill="rgba(255,255,255,0.4)"/>
             <circle cx="124" cy="100" r="2.5" fill="rgba(255,255,255,0.35)"/>
-
-            <!-- 연필 -->
             <g transform="translate(100,85) rotate(-35)">
               <rect x="-4" y="-22" width="8" height="28" rx="2" fill="rgba(255,255,255,0.5)" stroke="rgba(255,255,255,0.7)" stroke-width="1"/>
               <polygon points="-4,6 4,6 0,14" fill="rgba(255,220,150,0.85)"/>
@@ -62,6 +66,7 @@
           </svg>
         </div>
       </header>
+
       <section class="input-section">
         <div class="input-row">
           <input type="text" id="todoInput" class="todo-input" placeholder="할 일을 입력하세요...">
@@ -113,9 +118,8 @@
         <button id="clearCompletedBtn" class="clear-btn">완료 항목 삭제</button>
       </footer>
     </main>
-
   </div>
 
-  <script src="app.js"></script>
+  <script type="module" src="/app.js"></script>
 </body>
 </html>
